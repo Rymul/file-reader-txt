@@ -3,12 +3,13 @@ def get_all_txt_files(path_to_dir)
     files = Dir[path_to_dir + '/*.txt']
 end
 
-# Returns a hash with a count of all words
+# Returns a hash with a count of all chars
 def parse_txt_file(path_to_file)
     words = []
     file = File.open(path_to_file)
     file_data = file.readlines.map(&:chomp)
-    file_data.each { |sentence| words.concat(sentence.split(/[^[[:word:]]']+/)) }
+    file_data.each { |sentence| words.concat(sentence.split("")) }
+    #/[^[[:word:]]']+/
     file.close
 
     Hash.new(0).tap { |h| words.each { |word| h[word.downcase] += 1 } }
@@ -42,4 +43,3 @@ def main()
 end
 
 main()
-,
